@@ -1,0 +1,5 @@
+<div class="box">
+    <h2>🎤 AI Voice Assistant</h2>
+    <button onclick="startListening()">🎙️ Speak</button>
+    <p id="voiceText"></p>
+</div>
