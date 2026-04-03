@@ -79,7 +79,7 @@ smart-farming/
 
 🌐 Live Website
 
-👉 https://yourusername.github.io/smart-farming/
+👉 https://smartagri-Ai.github.io/smart-farming/
 
 (Replace "yourusername" with your actual GitHub username)
 
@@ -89,7 +89,7 @@ smart-farming/
 
 Use your custom credentials OR demo:
 
-- Username: admin
+- Username: Harika
 - Password: 1234
 
 ---
