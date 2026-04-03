@@ -79,7 +79,7 @@ smart-farming/
 
 🌐 Live Website
 
-👉 https://smartagri-Ai.github.io/smart-farming/
+👉 https://25a31a4337.github.io/AGRISMART-AI/
 
 (Replace "yourusername" with your actual GitHub username)
 
