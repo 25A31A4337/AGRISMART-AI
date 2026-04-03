@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AGRISMART AI</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #2e7d32, #81c784);
+            color: white;
+            text-align: center;
+        }
+
+        .login-box {
+            background: rgba(255,255,255,0.95);
+            color: black;
+            padding: 35px;
+            border-radius: 20px;
+            width: 320px;
+            margin: 100px auto;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease;
+        }
+
+        .container {
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+
+        input, select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background: #2e7d32;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1b5e20;
+            transform: scale(1.05);
+        }
+
+        .box {
+            background: white;
+            color: black;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .box:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🔐 LOGIN -->
+<div id="loginPage" class="login-box">
+    <h2>🌱 AGRISMART AI</h2>
+
+    <input type="text" id="username" placeholder="Username"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+
+    <button onclick="login()">Login</button>
+
+    <p style="color:gray;">Demo: admin / 1234</p>
+    <p id="error" style="color:red;"></p>
+</div>
+
+<!-- 🌐 MAIN -->
+<div id="mainPage" class="container">
+
+<h1>🌱 AGRISMART AI SYSTEM</h1>
+
+<!-- 🎤 Voice -->
+<div class="box">
+    <h2>🎤 Voice Assistant</h2>
+    <button onclick="speakEnglish()">English</button>
+    <button onclick="speakTelugu()">Telugu</button>
+</div>
+
+<!-- 💧 Irrigation -->
+<div class="box">
+    <h2>💧 Smart Irrigation</h2>
+
+    <select id="soil">
+        <option value="dry">Dry</option>
+        <option value="moist">Moist</option>
+        <option value="wet">Wet</option>
+        <option value="very dry">Very Dry</option>
+        <option value="rainy">Rainy</option>
+    </select>
+
+    <button onclick="checkWater()">Check</button>
+    <p id="waterResult"></p>
+</div>
+
+<!-- 🌾 Soil -->
+<div class="box">
+    <h2>🌾 Crop Recommendation</h2>
+    <input id="soilType" placeholder="black / red / alluvial">
+    <button onclick="recommendCrop()">Suggest</button>
+    <p id="cropResult"></p>
+</div>
+
+<!-- 📷 Disease -->
+<div class="box">
+    <h2>📷 Disease Detection</h2>
+    <input type="file">
+    <button onclick="detectDisease()">Detect</button>
+    <p id="diseaseResult"></p>
+</div>
+
+<!-- 🧑‍🌾 Market -->
+<div class="box">
+    <h2>🧑‍🌾 Farmer Market</h2>
+    <input id="name" placeholder="Name"><br>
+    <input id="crop" placeholder="Crop"><br>
+    <input id="price" placeholder="Price"><br>
+    <button onclick="addMarket()">Add</button>
+    <p id="marketList"></p>
+</div>
+
+<!-- 🌦️ Weather -->
+<div class="box">
+    <h2>🌦️ Weather</h2>
+    <button onclick="getWeather()">Get Weather</button>
+    <p id="weather"></p>
+</div>
+
+</div>
+
+<script>
+// LOGIN
+function login() {
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if (user === "Harika" && pass === "1234") {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("mainPage").style.display = "block";
+    } else {
+        document.getElementById("error").innerText = "Invalid Login!";
+    }
+}
+
+// VOICE
+function speakEnglish() {
+    let msg = new SpeechSynthesisUtterance("Welcome to AgriSmart AI System");
+    speechSynthesis.speak(msg);
+}
+
+function speakTelugu() {
+    let msg = new SpeechSynthesisUtterance("Mee AgriSmart AI ki swagatham");
+    msg.lang = "te-IN";
+    speechSynthesis.speak(msg);
+}
+
+// IMPROVED IRRIGATION
+function checkWater() {
+    let soil = document.getElementById("soil").value;
+    let result = "";
+
+    if (soil === "dry") {
+        result = "💧 Soil is dry → Start irrigation";
+    } 
+    else if (soil === "moist") {
+        result = "⚠️ Moderate moisture → Light watering needed";
+    } 
+    else if (soil === "wet") {
+        result = "✅ Soil is wet → No irrigation needed";
+    } 
+    else if (soil === "very dry") {
+        result = "🚨 Very dry → Immediate irrigation required!";
+    } 
+    else if (soil === "rainy") {
+        result = "🌧️ Rain detected → Irrigation OFF";
+    }
+
+    document.getElementById("waterResult").innerText = result;
+}
+
+// SOIL
+function recommendCrop() {
+    let soil = document.getElementById("soilType").value.toLowerCase();
+    let result = "";
+
+    if (soil === "black") result = "Cotton, Soybean";
+    else if (soil === "red") result = "Groundnut";
+    else if (soil === "alluvial") result = "Rice, Wheat";
+    else result = "General crops";
+
+    document.getElementById("cropResult").innerText = result;
+}
+
+// DISEASE
+function detectDisease() {
+    document.getElementById("diseaseResult").innerText =
+        "Leaf disease detected (Demo)";
+}
+
+// MARKET
+let marketData = [];
+
+function addMarket() {
+    let name = document.getElementById("name").value;
+    let crop = document.getElementById("crop").value;
+    let price = document.getElementById("price").value;
+
+    marketData.push(name + " selling " + crop + " at ₹" + price);
+    document.getElementById("marketList").innerHTML = marketData.join("<br>");
+}
+
+// WEATHER
+function getWeather() {
+    document.getElementById("weather").innerText =
+        "Temperature: 30°C (Demo)";
+}
+</script>
+
+</body>
+</html>
