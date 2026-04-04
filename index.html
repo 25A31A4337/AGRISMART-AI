@@ -1,241 +1,322 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AGRISMART AI</title>
+<title>AGRISMART AI</title>
 
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            background: linear-gradient(135deg, #2e7d32, #81c784);
-            color: white;
-            text-align: center;
-        }
+<style>
+body{
+    font-family:'Segoe UI';
+    margin:0;
+    background:linear-gradient(135deg,#2e7d32,#81c784);
+    color:white;
+    text-align:center;
+}
 
-        .login-box {
-            background: white;
-            color: black;
-            padding: 30px;
-            border-radius: 15px;
-            width: 300px;
-            margin: 100px auto;
-        }
+.login-box{
+    background:white;
+    color:black;
+    padding:30px;
+    border-radius:20px;
+    width:320px;
+    margin:100px auto;
+}
 
-        .container { display: none; }
+.container{display:none;}
 
-        input, select {
-            width: 90%;
-            padding: 10px;
-            margin: 10px;
-            border-radius: 10px;
-        }
+.box{
+    background:white;
+    color:black;
+    margin:15px;
+    padding:20px;
+    border-radius:15px;
+}
 
-        button {
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            background: green;
-            color: white;
-        }
+input,select{
+    width:90%;
+    padding:10px;
+    margin:10px;
+    border-radius:10px;
+}
 
-        .box {
-            background: white;
-            color: black;
-            margin: 15px;
-            padding: 20px;
-            border-radius: 15px;
-        }
+button{
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    background:#2e7d32;
+    color:white;
+}
 
-        img {
-            width: 100px;
-            border-radius: 50%;
-        }
-    </style>
+#voiceOutput{
+    white-space:pre-line;
+}
+
+#history{
+    background:#eee;
+    color:black;
+    padding:10px;
+    border-radius:10px;
+}
+</style>
 </head>
 
 <body>
 
-<!-- 🔐 LOGIN -->
+<!-- LOGIN -->
 <div id="loginPage" class="login-box">
-
-    <img src="logo.png">
-    <h2>AGRISMART AI</h2>
-
-    <input id="username" placeholder="Username"><br>
-    <input id="password" type="password" placeholder="Password"><br>
-
-    <button onclick="login()">Login</button>
-    <p id="error" style="color:red;"></p>
+<img src="logo.png" width="120">
+<h2>🌱 AGRISMART AI</h2>
+<input id="username" placeholder="Username"><br>
+<input id="password" type="password" placeholder="Password"><br>
+<button onclick="login()">Login</button>
+<p id="error" style="color:red;"></p>
 </div>
 
-<!-- 🌐 MAIN -->
+<!-- MAIN -->
 <div id="mainPage" class="container">
 
 <h1>🌱 AGRISMART AI SYSTEM</h1>
 
-<!-- 🎤 VOICE -->
+<!-- VOICE -->
 <div class="box">
-    <h2>🎤 Voice Assistant (Telugu + English)</h2>
-    <button onclick="startListening()">🎙️ Speak</button>
-    <p id="voiceText"></p>
+<h2>🎤 Smart Voice Assistant</h2>
+
+<select id="langSelect">
+<option value="te">Telugu</option>
+<option value="en">English</option>
+</select>
+
+<br>
+
+<button onclick="startListening()">🎙️ Start</button>
+<button onclick="stopAll()">🛑 Stop</button>
+<button onclick="clearVoice()">🧹 Clear</button>
+
+<p id="voiceOutput"></p>
+
+<h3>History</h3>
+<div id="history"></div>
 </div>
 
-<!-- 💧 IRRIGATION -->
+<!-- IRRIGATION -->
 <div class="box">
-    <h2>💧 Smart Irrigation</h2>
-    <select id="soil">
-        <option value="dry">Dry</option>
-        <option value="moist">Moist</option>
-        <option value="wet">Wet</option>
-        <option value="very dry">Very Dry</option>
-        <option value="rainy">Rainy</option>
-    </select>
-    <button onclick="checkWater()">Check</button>
-    <p id="waterResult"></p>
+<h2>💧 Smart Irrigation</h2>
+
+<select id="soil">
+<option value="dry">Dry</option>
+<option value="moist">Moist</option>
+<option value="wet">Wet</option>
+<option value="very dry">Very Dry</option>
+</select>
+
+<button onclick="checkWater()">Check</button>
+<p id="waterResult"></p>
 </div>
 
-<!-- 🌾 SOIL -->
+<!-- CROP -->
 <div class="box">
-    <h2>🌾 Crop Recommendation</h2>
-    <input id="soilType" placeholder="black / red / alluvial">
-    <button onclick="recommendCrop()">Suggest</button>
-    <p id="cropResult"></p>
+<h2>🌾 Crop Recommendation</h2>
+
+<input id="soilType" placeholder="black / red / alluvial">
+
+<button onclick="recommendCrop()">Suggest</button>
+<p id="cropResult"></p>
 </div>
 
-<!-- 📷 DISEASE -->
+<!-- DISEASE -->
 <div class="box">
-    <h2>📷 AI Disease Detection</h2>
-    <input type="file" id="imageInput"><br>
-    <img id="preview" style="display:none;">
-    <button onclick="detectDisease()">Detect</button>
-    <p id="diseaseResult"></p>
+<h2>📷 Disease Detection</h2>
+
+<input type="file" id="imageInput"><br>
+<img id="preview" width="150" style="display:none;"><br>
+
+<button onclick="detectDisease()">Detect</button>
+<p id="diseaseResult"></p>
 </div>
 
-<!-- 🧑‍🌾 MARKET -->
+<!-- MARKET -->
 <div class="box">
-    <h2>🧑‍🌾 Farmer Market</h2>
-    <input id="name" placeholder="Name"><br>
-    <input id="crop" placeholder="Crop"><br>
-    <input id="price" placeholder="Price"><br>
-    <button onclick="addMarket()">Add</button>
-    <p id="marketList"></p>
+<h2>🧑‍🌾 Farmer Market</h2>
+
+<input id="name" placeholder="Name"><br>
+<input id="crop" placeholder="Crop"><br>
+<input id="price" placeholder="Price"><br>
+
+<button onclick="addMarket()">Add</button>
+<p id="marketList"></p>
 </div>
 
-<!-- 🌦️ WEATHER -->
+<!-- WEATHER -->
 <div class="box">
-    <h2>🌦️ Smart Weather System</h2>
-    <button onclick="getWeather()">Get Weather</button>
-    <p id="weather"></p>
+<h2>🌦️ Weather</h2>
+
+<button onclick="getWeather()">Get Weather</button>
+<p id="weather"></p>
 </div>
 
 </div>
 
 <script>
+
 // LOGIN
 function login(){
-    if(username.value=="Harika" && password.value=="1234"){
-        loginPage.style.display="none";
-        mainPage.style.display="block";
-    } else {
-        error.innerText="Invalid Login";
-    }
+if(username.value=="Harika" && password.value=="1234"){
+loginPage.style.display="none";
+mainPage.style.display="block";
+}else{
+error.innerText="Invalid Login";
+}
 }
 
-// 🎤 VOICE (TELUGU + ENGLISH FIXED)
-function startListening(){
-    const rec=new(window.SpeechRecognition||window.webkitSpeechRecognition)();
-    rec.lang="en-IN";
-    rec.start();
+// 🎤 VOICE
+let recognition;
+let historyData=[];
+let lastResponse="";
 
-    rec.onresult=e=>{
-        let text=e.results[0][0].transcript.toLowerCase();
-        voiceText.innerText="You said: "+text;
-        respond(text);
-    };
+function startListening(){
+recognition=new(window.SpeechRecognition||window.webkitSpeechRecognition)();
+recognition.lang="en-IN";
+recognition.start();
+
+recognition.onresult=e=>{
+let cmd=e.results[0][0].transcript.toLowerCase();
+respond(cmd);
+};
+}
+
+function stopAll(){
+speechSynthesis.cancel();
+if(recognition) recognition.stop();
+}
+
+function clearVoice(){
+voiceOutput.innerText="";
+history.innerHTML="";
+historyData=[];
 }
 
 function respond(cmd){
-    let isTelugu=/[\u0C00-\u0C7F]/.test(cmd);
-    let res="";
 
-    if(cmd.includes("నీరు")||cmd.includes("water"))
-        res=isTelugu?"నీరు సరైన సమయంలో ఇవ్వాలి":"Water crops properly";
-    else if(cmd.includes("పంట")||cmd.includes("crop"))
-        res=isTelugu?"పంట ఎంపిక మట్టి పై ఆధారపడి ఉంటుంది":"Crop depends on soil type";
-    else if(cmd.includes("వ్యాధి")||cmd.includes("disease"))
-        res=isTelugu?"ఫోటో అప్లోడ్ చేసి వ్యాధి తెలుసుకోండి":"Upload image for disease detection";
-    else if(cmd.includes("వాతావరణం")||cmd.includes("weather"))
-        res=isTelugu?"వాతావరణ వివరాలు ఇక్కడ ఉన్నాయి":"Weather info is shown here";
-    else if(cmd.includes("హలో")||cmd.includes("hello"))
-        res=isTelugu?"నమస్కారం!":"Hello! Welcome";
-    else
-        res=isTelugu?"అర్థం కాలేదు":"Not understood";
+let tel="",eng="";
 
-    speak(res);
+if(cmd.includes("water")||cmd.includes("నీరు")){
+tel="పంటలకు నీరు ఇవ్వాలి";
+eng="Water crops";
+}
+else if(cmd.includes("crop")||cmd.includes("పంట")){
+tel="మట్టి ఆధారంగా పంటలు ఎంచుకోవాలి";
+eng="Choose crops based on soil";
+}
+else if(cmd.includes("weather")){
+tel="వాతావరణ సమాచారం";
+eng="Weather info";
+getWeather();
+}
+else{
+tel="వ్యవసాయం గురించి అడగండి";
+eng="Ask about farming";
 }
 
-function speak(msg){
-    let m=new SpeechSynthesisUtterance(msg);
-    m.lang=/[\u0C00-\u0C7F]/.test(msg)?"te-IN":"en-IN";
-    speechSynthesis.speak(m);
+let combined="👉 "+tel+"\n👉 "+eng;
+voiceOutput.innerText=combined;
+
+historyData.push(combined);
+history.innerHTML=historyData.join("<br>");
+
+let lang=document.getElementById("langSelect").value;
+lastResponse=(lang=="te")?tel:eng;
+
+let msg=new SpeechSynthesisUtterance(lastResponse);
+msg.lang=(lang=="te")?"te-IN":"en-IN";
+speechSynthesis.speak(msg);
 }
 
-// IRRIGATION
+// 💧 IRRIGATION
 function checkWater(){
-    let s=soil.value;
-    waterResult.innerText=
-        s=="dry"?"💧 Water needed":
-        s=="moist"?"⚠️ Light watering":
-        s=="wet"?"✅ No water":
-        s=="very dry"?"🚨 Urgent irrigation":
-        "🌧️ OFF";
+
+let soilVal=soil.value;
+let temp=Math.floor(Math.random()*10)+28;
+let rain=Math.floor(Math.random()*100);
+let humidity=Math.floor(Math.random()*50)+40;
+
+let level="",status="",advice="";
+
+if(rain>70){
+level="NONE";status="OFF";advice="Rain → Stop irrigation";
+}
+else if(soilVal=="very dry"){
+level="HIGH";status="ON";advice="Immediate watering";
+}
+else if(soilVal=="dry"){
+level="MEDIUM";status="ON";advice="Water crops";
+}
+else if(soilVal=="moist"){
+level="LOW";status="ON";advice="Light irrigation";
+}
+else{
+level="NONE";status="OFF";advice="No water needed";
 }
 
-// SOIL
+waterResult.innerText=
+"Level:"+level+"\nStatus:"+status+
+"\nTemp:"+temp+"°C\nHumidity:"+humidity+"%\nRain:"+rain+"%\n"+advice;
+}
+
+// 🌾 CROP
 function recommendCrop(){
-    let s=soilType.value.toLowerCase();
-    cropResult.innerText=
-        s=="black"?"Cotton":
-        s=="red"?"Groundnut":
-        s=="alluvial"?"Rice":
-        "General crops";
+
+let soilVal=soilType.value.toLowerCase();
+let temp=Math.floor(Math.random()*10)+25;
+let rain=Math.floor(Math.random()*100);
+
+let crops=(soilVal=="black")?"Cotton, Soybean":
+(soilVal=="red")?"Groundnut":
+(soilVal=="alluvial")?"Rice":
+"Maize";
+
+let advice=(rain>70)?"Rain crops":
+(temp>32)?"Drought crops":
+"Normal crops";
+
+cropResult.innerText=
+"Crops:"+crops+"\nTemp:"+temp+"°C\nRain:"+rain+"%\n"+advice;
 }
 
-// DISEASE
+// 📷 DISEASE
 imageInput.onchange=e=>{
-    preview.src=URL.createObjectURL(e.target.files[0]);
-    preview.style.display="block";
+preview.src=URL.createObjectURL(e.target.files[0]);
+preview.style.display="block";
 };
+
 function detectDisease(){
-    let d=["Healthy","Leaf Spot","Fungal"];
-    diseaseResult.innerText="AI Result: "+d[Math.floor(Math.random()*d.length)];
+let d=["Healthy","Leaf Spot","Fungal","Bacterial"];
+diseaseResult.innerText="Disease:"+d[Math.floor(Math.random()*d.length)];
 }
 
-// MARKET
+// 🧑‍🌾 MARKET
 let data=[];
 function addMarket(){
-    data.push(name.value+" selling "+crop.value+" ₹"+price.value);
-    marketList.innerHTML=data.join("<br>");
+let rating=Math.floor(Math.random()*5)+1;
+data.push(name.value+" | "+crop.value+" | ₹"+price.value+" | ⭐"+rating);
+marketList.innerHTML=data.join("<br>");
 }
 
-// WEATHER
+// 🌦️ WEATHER
 function getWeather(){
-    let temp=Math.floor(Math.random()*10)+28;
-    let humidity=Math.floor(Math.random()*50)+40;
-    let wind=Math.floor(Math.random()*15)+5;
 
-    let cond=["Sunny ☀️","Cloudy ☁️","Rainy 🌧️"];
-    let c=cond[Math.floor(Math.random()*cond.length)];
+let temp=Math.floor(Math.random()*10)+28;
+let humidity=Math.floor(Math.random()*50)+40;
+let rain=Math.floor(Math.random()*100);
+let wind=Math.floor(Math.random()*20)+5;
 
-    let sug=c.includes("Rainy")?"No irrigation":
-             temp>35?"Increase watering":
-             "Normal weather";
+let advice=(rain>70)?"Avoid irrigation":
+(temp>35)?"Increase watering":
+(humidity>80)?"Disease risk":
+"Normal";
 
-    weather.innerHTML=
-        "Temp: "+temp+"°C<br>"+
-        "Condition: "+c+"<br>"+
-        "Humidity: "+humidity+"%<br>"+
-        "Wind: "+wind+" km/h<br><br>"+sug;
+weather.innerText=
+"Temp:"+temp+"°C\nHumidity:"+humidity+
+"%\nRain:"+rain+"%\nWind:"+wind+
+" km/h\n"+advice;
 }
 </script>
 
