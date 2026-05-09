@@ -1,4 +1,4 @@
-#🌱 AI Smart Farming System
+🌱 AI Smart Farming System
 
 📌 Project Overview
 
