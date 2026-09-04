@@ -148,42 +148,6 @@ cursor:pointer;
 padding:5px 0 12px
 }
 
-/* LOGIN */
-
-.login-screen{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:25px;
-background:linear-gradient(135deg,#e8f8ec,#f7faf8)
-}
-
-.login-screen:not(.active){
-display:none
-}
-
-.login-card{
-width:min(440px,94vw);
-background:#fff;
-border:1px solid #dce9df;
-border-radius:25px;
-padding:32px;
-box-shadow:0 18px 55px rgba(0,70,20,.13)
-}
-
-.login-logo{
-font-size:28px;
-font-weight:900;
-color:#078b2d;
-margin-bottom:20px
-}
-
-.login-card h1{
-font-size:30px;
-margin-bottom:8px
-}
-
 .form-group{
 margin-bottom:15px
 }
@@ -931,191 +895,12 @@ min-width:60px
 <body>
 
 <!-- =====================================================
-LOGIN
-===================================================== -->
-
-<section id="login" class="login-screen active">
-
-<div class="login-card">
-
-<div class="login-logo">
-🌾 AgriShield
-</div>
-
-<div id="loginBox">
-
-<h1 data-i18n="farmerLogin">
-Farmer Login
-</h1>
-
-<p class="subtitle"
-data-i18n="loginSubtitle">
-Sign in to manage your farm, crop scans,
-weather and alerts.
-</p>
-
-<div class="form-group">
-
-<label data-i18n="farmerName">
-Farmer Name
-</label>
-
-<input
-id="loginName"
-placeholder="Enter your name">
-
-</div>
-
-<div class="form-group">
-
-<label data-i18n="mobile">
-Mobile Number
-</label>
-
-<input
-id="loginMobile"
-placeholder="+91 XXXXX XXXXX (optional)"
-inputmode="tel">
-
-</div>
-
-<div class="form-group">
-
-<label data-i18n="password">Password</label>
-
-<input
-id="loginPassword"
-type="password"
-placeholder="Enter any password">
-
-</div>
-
-<button
-class="btn full"
-id="loginBtn"
-data-i18n="loginBtn">
-Login to AgriShield
-</button>
-
-<div class="login-switch">
-
-<span data-i18n="newFarmer">
-New farmer?
-</span>
-
-<button
-id="showCreate"
-data-i18n="createAccount">
-Create Account
-</button>
-
-</div>
-
-</div>
-
-
-<div id="createBox" style="display:none">
-
-<h1 data-i18n="createTitle">
-Create Account
-</h1>
-
-<p class="subtitle"
-data-i18n="createSubtitle">
-Create your AgriShield farmer account.
-</p>
-
-<div class="form-group">
-
-<label data-i18n="farmerName">
-Farmer Name
-</label>
-
-<input
-id="createName"
-placeholder="Enter your name">
-
-</div>
-
-
-<div class="form-group">
-
-<label data-i18n="mobile">
-Mobile Number
-</label>
-
-<input
-id="createMobile"
-placeholder="+91 XXXXX XXXXX"
-inputmode="tel">
-
-</div>
-
-
-<div class="form-group">
-
-<label data-i18n="password">
-Password
-</label>
-
-<input
-id="createPassword"
-type="password"
-placeholder="Create password">
-
-</div>
-
-
-<div class="form-group">
-
-<label data-i18n="confirmPassword">
-Confirm Password
-</label>
-
-<input
-id="confirmPassword"
-type="password"
-placeholder="Confirm password">
-
-</div>
-
-
-<button
-class="btn full"
-id="createBtn"
-data-i18n="createAccount">
-Create Account
-</button>
-
-
-<div class="login-switch">
-
-<span data-i18n="alreadyAccount">
-Already have an account?
-</span>
-
-<button
-id="showLogin"
-data-i18n="login">
-Login
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
 APP
 ===================================================== -->
 
 <div
 id="appShell"
-style="display:none">
+style="display:block">
 
 
 <header>
@@ -2506,13 +2291,6 @@ id="saveProfile">
 
 </button>
 
-<button
-class="btn red"
-id="logoutBtn">
-
-🚪 Logout
-
-</button>
 
 </div>
 
@@ -2919,177 +2697,7 @@ t.classList.remove("show")
 }
 
 
-/* =========================================================
-LOGIN / ACCOUNT
-========================================================= */
-
-$("showCreate").onclick=()=>{
-
-$("loginBox").style.display="none";
-$("createBox").style.display="block";
-
-};
-
-
-$("showLogin").onclick=()=>{
-
-$("createBox").style.display="none";
-$("loginBox").style.display="block";
-
-};
-
-
-$("createBtn").onclick=()=>{
-
-const name=$("createName").value.trim();
-const mobile=$("createMobile").value.trim();
-const password=$("createPassword").value;
-const confirm=$("confirmPassword").value;
-
-
-if(!name||!mobile||!password){
-
-toast(
-language==="te"
-?"అన్ని వివరాలు నమోదు చేయండి"
-:
-language==="hi"
-?"सभी विवरण दर्ज करें"
-:
-"Please enter all details"
-);
-
-return;
-
-}
-
-
-if(password!==confirm){
-
-toast(
-language==="te"
-?"పాస్‌వర్డ్‌లు సరిపోలలేదు"
-:
-language==="hi"
-?"पासवर्ड मेल नहीं खाते"
-:
-"Passwords do not match"
-);
-
-return;
-
-}
-
-
-localStorage.setItem(
-"agrishieldAccount",
-JSON.stringify({
-name:name,
-mobile:mobile,
-password:password
-})
-);
-
-
-$("loginName").value=name;
-$("loginMobile").value=mobile;
-
-$("createBox").style.display="none";
-$("loginBox").style.display="block";
-
-
-toast(
-language==="te"
-?"ఖాతా విజయవంతంగా సృష్టించబడింది"
-:
-language==="hi"
-?"खाता सफलतापूर्वक बनाया गया"
-:
-"Account created successfully"
-);
-
-};
-
-
-$("loginBtn").onclick=()=>{
-
-const name=$("loginName").value.trim();
-const mobile=$("loginMobile").value.trim();
-
-if(!name||!mobile){
-
-toast(
-language==="te"
-?"పేరు మరియు మొబైల్ నంబర్ నమోదు చేయండి"
-:
-language==="hi"
-?"नाम और मोबाइल नंबर दर्ज करें"
-:
-"Enter name and mobile number"
-);
-
-return;
-
-}
-
-
-const account=
-JSON.parse(
-localStorage.getItem("agrishieldAccount")||"null"
-);
-
-
-if(account){
-
-if(
-account.mobile!==mobile
-){
-
-toast(
-language==="te"
-?"ఖాతా మొబైల్ నంబర్ సరిపోలలేదు"
-:
-language==="hi"
-?"मोबाइल नंबर मेल नहीं खाता"
-:
-"Mobile number does not match account"
-);
-
-return;
-
-}
-
-}
-
-
-localStorage.setItem(
-"agrishieldUser",
-JSON.stringify({
-name:name,
-mobile:mobile
-})
-);
-
-
-openApp();
-
-toast(
-language==="te"
-?"AgriShield కి స్వాగతం 🌱"
-:
-language==="hi"
-?"AgriShield में आपका स्वागत है 🌱"
-:
-"Welcome to AgriShield 🌱"
-);
-
-};
-
-
 function openApp(){
-
-$("login")
-.classList.remove("active");
 
 $("appShell")
 .style.display="block";
@@ -4454,33 +4062,6 @@ toast("Profile updated 👤");
 };
 
 
-/* =========================================================
-LOGOUT
-========================================================= */
-
-$("logoutBtn").onclick=()=>{
-
-if(
-!confirm("Logout from AgriShield?")
-)return;
-
-
-localStorage.removeItem(
-"agrishieldUser"
-);
-
-
-$("appShell").style.display="none";
-
-$("login").classList.add("active");
-
-pageHistory=["home"];
-currentPage="home";
-
-toast("Logged out");
-
-};
-
 
 /* =========================================================
 MODALS
@@ -5004,7 +4585,7 @@ translateWholePage(language);renderPests();renderAdvisory();
     card?.insertBefore(stats,card.querySelector('.form-group'));
     const tools=document.createElement('div');tools.className='profile-tools';
     tools.innerHTML='<button class="btn secondary" id="profileRefreshStats">↻ Refresh Stats</button><button class="btn secondary" data-go="documents">📁 My Documents</button>';
-    card?.insertBefore(tools,card.querySelector('#logoutBtn'));
+    card?.appendChild(tools);
     $id('profileRefreshStats').onclick=updateProfileStats;
   }
   function updateProfileStats(){
@@ -5064,21 +4645,7 @@ translateWholePage(language);renderPests();renderAdvisory();
     upload.style.display='none';
   }
 
-  /* 2. Login should work with any farmer name/mobile entered by the user.
-        Creating an account remains available, but an existing account no longer
-        blocks login because the prototype has no server-side authentication. */
-  const loginBtn=$('loginBtn');
-  if(loginBtn){
-    loginBtn.onclick=function(){
-      const name=$('loginName')?.value.trim();
-      const mobile=$('loginMobile')?.value.trim();
-      if(!name){ toast(language==='te'?'మీ పేరు నమోదు చేయండి':language==='hi'?'अपना नाम दर्ज करें':'Enter your name'); return; }
-      if(!mobile){ toast(language==='te'?'మొబైల్ నంబర్ నమోదు చేయండి':language==='hi'?'मोबाइल नंबर दर्ज करें':'Enter your mobile number'); return; }
-      localStorage.setItem('agrishieldUser',JSON.stringify({name,mobile}));
-      openApp();
-      toast(language==='te'?'AgriShield కి స్వాగతం 🌱':language==='hi'?'AgriShield में आपका स्वागत है 🌱':'Welcome to AgriShield 🌱');
-    };
-  }
+  /* 3. Fertilizer/nutrient suggestions.
 
   /* 3. Fertilizer/nutrient suggestions. These are general guidance, not a
         prescription; rates should follow soil tests, crop stage and local labels. */
@@ -5222,20 +4789,7 @@ translateWholePage(language);renderPests();renderAdvisory();
   }
   window.updateDashboardMetrics=updateDashboardMetrics;
 
-  /* Login: any username + any password. Mobile is optional. */
-  const loginBtn=$('loginBtn');
-  if(loginBtn){
-    loginBtn.onclick=function(){
-      const name=$('loginName')?.value.trim();
-      const password=$('loginPassword')?.value || '';
-      const mobile=$('loginMobile')?.value.trim() || '';
-      if(!name){toast('Enter any username');return;}
-      if(!password){toast('Enter any password');return;}
-      localStorage.setItem('agrishieldUser',JSON.stringify({name,mobile,password}));
-      openApp();
-      toast('Welcome to AgriShield 🌱');
-    };
-  }
+  
 
   /* Keep dashboard values synchronized after scan/pest changes. */
   const originalShow=window.showSection;
@@ -5282,30 +4836,7 @@ section.active{animation:agrSectionIn .42s ease both}
   const $=id=>document.getElementById(id);
   const read=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))||d}catch(e){return d}};
 
-  /* First login starts the dashboard cleanly. Existing users keep their data. */
-  function prepareFirstLogin(){
-    if(localStorage.getItem('agrishieldFirstLoginDone')==='1') return;
-    localStorage.setItem('agrishieldHistory','[]');
-    localStorage.setItem('agrishieldPestReports','[]');
-    localStorage.setItem('agrishieldDocuments','[]');
-    localStorage.removeItem('agrishieldLatestScan');
-    localStorage.setItem('agrishieldFirstLoginDone','1');
-  }
-
-  /* Any username/password is accepted on this prototype. */
-  const login=$('loginBtn');
-  if(login) login.onclick=function(){
-    const name=$('loginName')?.value.trim()||'';
-    const password=$('loginPassword')?.value||'';
-    const mobile=$('loginMobile')?.value.trim()||'';
-    if(!name){toast('Enter any username');return;}
-    if(!password){toast('Enter any password');return;}
-    prepareFirstLogin();
-    localStorage.setItem('agrishieldUser',JSON.stringify({name,mobile,password}));
-    if(typeof openApp==='function') openApp();
-    setTimeout(()=>{if(typeof updateDashboardMetrics==='function')updateDashboardMetrics();},80);
-    toast('Welcome to AgriShield 🌱');
-  };
+    
 
   /* Persist the latest scan so the dashboard/advisory can use it after navigation. */
   window.__persistScan=function(r){
