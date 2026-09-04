@@ -6443,5 +6443,146 @@ window.addEventListener('load',()=>{setTimeout(()=>{wireVoice();wireStats();refr
 
 })();
 </script>
+
+<script>
+/* =========================================================
+   FINAL PATCH: MANAGEMENT ADVISORY + REFERENCE PHOTO LOADING
+   - Advisory always uses the latest completed scan.
+   - Does not send the user back to Scanner after a scan.
+   - Hides the "Loading reference photos 1/38..." progress after scan.
+   - Keeps the matched spreadsheet reference photo visible in the result.
+   ========================================================= */
+(function(){
+  'use strict';
+  const $=id=>document.getElementById(id);
+
+  function getLatest(){
+    if(window.latestScan) return window.latestScan;
+    try{
+      const r=JSON.parse(localStorage.getItem('agrishieldLatestScan')||'null');
+      if(r){ window.latestScan=r; return r; }
+    }catch(e){}
+    return null;
+  }
+
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+  function renderAdvisoryFinal(){
+    const sec=$('advisory');
+    if(!sec) return false;
+    const r=getLatest();
+    let box=$('dynamicAdvisory');
+    if(!box){
+      box=document.createElement('div');
+      box.id='dynamicAdvisory';
+      sec.appendChild(box);
+    }
+    /* Hide the old static advisory card so it can never replace the real result. */
+    sec.querySelectorAll(':scope > .card').forEach(c=>{ if(c!==box) c.style.display='none'; });
+
+    if(!r){
+      box.innerHTML=`<div class="card empty"><div style="font-size:48px">🧠</div><h3>Scan a crop to generate your management advisory</h3><p>Your advisory will appear here after a crop scan is completed.</p><br><button type="button" class="btn" id="advisoryScanNow">📷 Scan My Crop</button></div>`;
+      const b=$('advisoryScanNow');
+      if(b)b.onclick=()=>{ if(typeof showSection==='function')showSection('scan'); };
+      return false;
+    }
+
+    const sev=String(r.severity||'MODERATE').toUpperCase();
+    const cls=sev==='HIGH'?'red':sev==='MODERATE'?'yellow':'green';
+    const ref=r.referencePhoto||r.imageSrc||'';
+    box.innerHTML=`
+      <div class="card">
+        ${ref?`<img src="${ref}" alt="${esc(r.crop)} — ${esc(r.detection)} reference photo" style="width:100%;max-height:300px;object-fit:contain;border-radius:18px;background:#f1f6f2;margin-bottom:14px">`:''}
+        <span class="badge ${cls}">${esc(sev)} RISK</span>
+        <h2 style="margin:12px 0">${esc(r.crop)} — ${esc(r.detection)}</h2>
+        <p><b>Confidence:</b> ${esc(r.confidence||'')}</p>
+        <div class="card" style="background:#e4f7e9">
+          <h3>TODAY</h3>
+          <p>✓ Inspect affected plants<br>✓ Check nearby plants<br>✓ Remove severely affected material where appropriate</p>
+        </div>
+        <div class="card" style="background:#fff0d5">
+          <h3 style="color:#d07a00">NEXT 2 DAYS</h3>
+          <p>✓ Recheck after rainfall or irrigation<br>✓ Monitor disease/pest spread</p>
+        </div>
+        <div class="grid">
+          <div class="card"><h3>1️⃣ Symptoms</h3><p>${esc(r.symptoms||'')}</p></div>
+          <div class="card"><h3>2️⃣ Manage</h3><p>${esc(r.recommendation||'')}</p></div>
+          <div class="card"><h3>3️⃣ Monitor</h3><p>Repeat scanning to track progression.</p></div>
+        </div>
+        <button type="button" class="btn" id="dynamicSaveAdvisoryFinal">💾 Save Action Plan</button>
+      </div>`;
+
+    const sb=$('dynamicSaveAdvisoryFinal');
+    if(sb)sb.onclick=()=>{
+      let docs=[];try{docs=JSON.parse(localStorage.getItem('agrishieldDocuments')||'[]')}catch(e){}
+      docs.unshift({id:Date.now(),type:'advisory',title:`${r.crop} — ${r.detection} Action Plan`,content:box.innerHTML,date:new Date().toLocaleString('en-IN')});
+      localStorage.setItem('agrishieldDocuments',JSON.stringify(docs));
+      if(typeof renderDocuments==='function')renderDocuments();
+      if(typeof englishToast==='function')englishToast('Management advisory saved successfully.');
+      else if(typeof toast==='function')toast('Management advisory saved successfully.');
+    };
+    return true;
+  }
+  window.renderAdvisory=renderAdvisoryFinal;
+  window.__agrShowAdvisory=renderAdvisoryFinal;
+
+  /* Replace the advisory navigation buttons with a direct action.
+     Removing data-go prevents the old navigation handler from sending the
+     user through the scanner first. */
+  function wireAdvisoryButtons(){
+    document.querySelectorAll('[data-go="advisory"]').forEach(btn=>{
+      btn.removeAttribute('data-go');
+      btn.setAttribute('type','button');
+      if(btn.dataset.advisoryWired==='1')return;
+      btn.dataset.advisoryWired='1';
+      btn.onclick=function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        if(typeof showSection==='function')showSection('advisory');
+        setTimeout(renderAdvisoryFinal,0);
+      };
+    });
+  }
+  wireAdvisoryButtons();
+
+  /* Hide reference-photo loading/progress once matching is finished. */
+  function hideScanProgress(){
+    const q=$('scanProgress');
+    if(q){q.textContent='';q.style.display='none';}
+  }
+  function showScanProgress(text){
+    const q=$('scanProgress');
+    if(q){q.textContent=text||'Analyzing crop photo…';q.style.display='block';}
+  }
+  window.__agrHideScanProgress=hideScanProgress;
+  window.__agrShowScanProgress=showScanProgress;
+
+  /* Observe scan result appearance. As soon as the scan result exists,
+     the 38-photo loading message is hidden and the matched photo remains. */
+  const sr=$('scanResult');
+  if(sr){
+    new MutationObserver(()=>{
+      if(sr.style.display!=='none' && sr.querySelector('#resultCrop')?.textContent?.trim()) hideScanProgress();
+    }).observe(sr,{childList:true,subtree:true,attributes:true,attributeFilter:['style']});
+  }
+
+  /* Catch completion from the current 38-photo matcher without replacing it. */
+  const oldSave=window.saveHistory;
+  document.addEventListener('click',()=>{
+    setTimeout(()=>{
+      const sr2=$('scanResult');
+      if(sr2 && sr2.style.display!=='none' && getLatest()) hideScanProgress();
+      wireAdvisoryButtons();
+    },50);
+  });
+
+  /* Make the current scan immediately available to advisory even after refresh. */
+  try{
+    const stored=localStorage.getItem('agrishieldLatestScan');
+    if(stored && !window.latestScan)window.latestScan=JSON.parse(stored);
+  }catch(e){}
+  renderAdvisoryFinal();
+})();
+</script>
 </body>
 </html>
