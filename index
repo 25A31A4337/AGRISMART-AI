@@ -1462,6 +1462,14 @@ body.agri-page-enter #appShell{
   padding:0!important;
 }
 </style>
+
+<style id="AGRISHIELD-V16-LANGUAGE-UI">
+#agrV16LoginLang{position:absolute;top:16px;right:18px;display:flex;gap:7px;z-index:100001;flex-wrap:wrap;justify-content:flex-end}
+#agrV16AppLang{position:fixed;top:78px;right:18px;display:flex;gap:6px;z-index:99998;background:rgba(255,255,255,.94);padding:7px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+#agrV16LoginLang button,#agrV16AppLang button{border:0;border-radius:10px;padding:8px 11px;font-weight:800;cursor:pointer;background:#e8f6eb;color:#08762b}
+#agrV16LoginLang button.active,#agrV16AppLang button.active{background:#08762b;color:#fff}
+@media(max-width:650px){#agrV16LoginLang{top:10px;right:10px}#agrV16AppLang{top:70px;right:8px}}
+</style>
 </head>
 
 <body>
@@ -4743,7 +4751,7 @@ $("languageModal")
 INITIALIZE
 ========================================================= */
 
-applyLanguage(language);
+/* V10 translator initializes language after the page is fully defined. */
 
 
 /* History count */
@@ -5995,7 +6003,7 @@ section.active{animation:agrSectionIn .42s ease both}
 
 
 <style id="agr-voice-photo-enhancement">
-.voice-assistant{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0}.voice-btn{border:0;border-radius:14px;padding:12px 16px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#16823b,#36b56a);color:#fff;box-shadow:0 8px 22px rgba(22,130,59,.2);transition:.2s}.voice-btn:hover{transform:translateY(-2px)}.voice-btn.stop{background:#8f2f2f}.voice-help{font-size:12px;color:var(--muted)}.voice-floating{position:fixed;right:18px;bottom:86px;z-index:5000;width:58px;height:58px;border-radius:50%;border:0;background:linear-gradient(135deg,#16823b,#69c879);color:#fff;font-size:24px;box-shadow:0 12px 30px rgba(0,0,0,.18);cursor:pointer;animation:voicePulse 2.4s infinite}.voice-floating.listening{animation:voicePulse .8s infinite}.fert-image img{width:100%;height:100%;object-fit:contain}.fert-image{display:flex;align-items:center;justify-content:center;overflow:hidden}.fert-copy span{display:block}.fert-source{font-size:10px;color:var(--muted);margin-top:5px}
+.voice-assistant{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0}.voice-btn{border:0;border-radius:14px;padding:12px 16px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#16823b,#36b56a);color:#fff;box-shadow:0 8px 22px rgba(22,130,59,.2);transition:.2s}.voice-btn:hover{transform:translateY(-2px)}.voice-btn.stop{background:#8f2f2f}.voice-help{display:none!important;font-size:12px;color:var(--muted)}.voice-floating{position:fixed;right:18px;bottom:86px;z-index:5000;width:58px;height:58px;border-radius:50%;border:0;background:linear-gradient(135deg,#16823b,#69c879);color:#fff;font-size:24px;box-shadow:0 12px 30px rgba(0,0,0,.18);cursor:pointer;animation:voicePulse 2.4s infinite}.voice-floating.listening{animation:voicePulse .8s infinite}.fert-image img{width:100%;height:100%;object-fit:contain}.fert-image{display:flex;align-items:center;justify-content:center;overflow:hidden}.fert-copy span{display:block}.fert-source{font-size:10px;color:var(--muted);margin-top:5px}
 @keyframes voicePulse{0%,100%{box-shadow:0 12px 30px rgba(0,0,0,.18),0 0 0 0 rgba(40,180,90,.25)}50%{box-shadow:0 12px 30px rgba(0,0,0,.18),0 0 0 12px rgba(40,180,90,0)}}
 </style>
 <script id="agr-voice-language-fix">
@@ -7799,6 +7807,548 @@ new MutationObserver(bind).observe(document.body,{childList:true,subtree:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hideReferenceUI);
   else hideReferenceUI();
   new MutationObserver(hideReferenceUI).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
+
+
+
+
+<style id="AGRISHIELD-V21-CLEAN-TRANSLATOR-CSS">
+#agrV21Lang{position:fixed;right:10px;top:10px;z-index:2147483000;display:none;align-items:center;gap:4px;padding:5px 6px;border-radius:999px;background:rgba(255,255,255,.97);box-shadow:0 7px 24px rgba(0,0,0,.16);font-family:Arial,sans-serif;backdrop-filter:blur(8px)}
+#agrV21Lang.show{display:flex}
+#agrV21Lang button{border:0;border-radius:999px;padding:8px 10px;background:#eef7ef;color:#087f2d;font-size:12px;font-weight:800;line-height:1;cursor:pointer;white-space:nowrap}
+#agrV21Lang button.active{background:#078b2d;color:#fff}
+#agrV21Login{position:absolute;right:12px;top:12px;z-index:2147483000;display:none;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(255,255,255,.97);box-shadow:0 7px 24px rgba(0,0,0,.16)}
+#agrV21Login.show{display:flex}
+#agrV21Login button{border:0;border-radius:999px;padding:8px 10px;background:#eef7ef;color:#087f2d;font-size:12px;font-weight:800;cursor:pointer}
+#agrV21Login button.active{background:#078b2d;color:#fff}
+#agrV21Progress{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:2147482999;display:none;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;background:rgba(20,91,47,.96);color:#fff;font:800 11px Arial,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.18);pointer-events:none}
+#agrV21Progress.show{display:flex}
+#agrV21Track{width:70px;height:5px;background:rgba(255,255,255,.25);border-radius:99px;overflow:hidden}
+#agrV21Fill{height:100%;width:0;background:#fff;border-radius:99px;transition:width .12s linear}
+body.dark #agrV21Lang,body.dark #agrV21Login{background:rgba(25,38,29,.98)}
+body.dark #agrV21Lang button,body.dark #agrV21Login button{background:#24372a;color:#d8f5df}
+body.dark #agrV21Lang button.active,body.dark #agrV21Login button.active{background:#078b2d;color:#fff}
+@media(max-width:650px){#agrV21Lang{right:8px;top:8px}#agrV21Lang button,#agrV21Login button{padding:8px 9px;font-size:11px}#agrV21Progress{bottom:72px}}
+</style>
+<script id="AGRISHIELD-V21-CLEAN-TRANSLATOR">
+(function(){
+'use strict';
+
+/* V21 CLEAN: one translation controller, no page reload, no characterData observer,
+   no replacement of app HTML, and no waiting for the network before changing language. */
+var LANGS={en:'English',te:'తెలుగు',hi:'हिन्दी'};
+var lang='en';
+try{lang=localStorage.getItem('agrishieldLanguage')||'en'}catch(e){}
+if(!LANGS[lang])lang='en';
+var generation=0,active=0,MAX=3,total=0,done=0,queue=[],pending=new Map(),cache={},controllers=new Set();
+var nodeSource=new WeakMap(),attrSource=new WeakMap(),optionSource=new WeakMap();
+try{cache=JSON.parse(localStorage.getItem('agrishieldV21Cache')||'{}')||{}}catch(e){cache={}};
+
+var fixed={
+ te:{SUN:'ఆదివారం',MON:'సోమవారం',TUE:'మంగళవారం',WED:'బుధవారం',THU:'గురువారం',FRI:'శుక్రవారం',SAT:'శనివారం',Sunday:'ఆదివారం',Monday:'సోమవారం',Tuesday:'మంగళవారం',Wednesday:'బుధవారం',Thursday:'గురువారం',Friday:'శుక్రవారం',Saturday:'శనివారం',Today:'ఈరోజు',Weather:'వాతావరణం',Humidity:'తేమ',Rain:'వర్షం',Wind:'గాలి',UV:'యూవీ',Refresh:'రిఫ్రెష్',Profile:'ప్రొఫైల్',Documents:'పత్రాలు',History:'చరిత్ర',Pests:'కీటకాలు',Scan:'స్కాన్',Home:'హోమ్',Alerts:'అలర్ట్స్','My Farm':'నా పొలం','Saved Documents':'సేవ్ చేసిన పత్రాలు','Crop Health History':'పంట ఆరోగ్య చరిత్ర','Health Trend':'ఆరోగ్య ధోరణి','Scan History':'స్కాన్ చరిత్ర','Report New Pest':'కొత్త కీటకాన్ని నమోదు చేయండి','Pest Scan':'కీటకాల స్కాన్','Add Observation':'పరిశీలనను జోడించండి','No Saved Documents':'సేవ్ చేసిన పత్రాలు లేవు','Create Scan Report':'స్కాన్ రిపోర్ట్ సృష్టించండి','Save Profile':'ప్రొఫైల్ సేవ్ చేయండి','Farmer Name':'రైతు పేరు','Mobile Number':'మొబైల్ నంబర్','Camera':'కెమెరా','Upload Image':'చిత్రాన్ని అప్‌లోడ్ చేయండి','Analyze Crop':'పంటను విశ్లేషించండి','Symptoms':'లక్షణాలు','Recommendation':'సిఫార్సు','Pest Monitoring':'కీటకాల పర్యవేక్షణ','Weather & Risk':'వాతావరణం & ప్రమాదం','Disease Risk':'వ్యాధి ప్రమాదం','LOW':'తక్కువ','MEDIUM':'మధ్యస్థం','MODERATE':'మధ్యస్థం','HIGH':'అధికం','No Pest':'కీటకాలు లేవు','Fruit Fly':'పండు ఈగ','Aphids':'పేను పురుగులు','Rust':'తుప్పు','Groundnut':'వేరుశెనగ','Tomato':'టమాటా','Potato':'బంగాళాదుంప','Chilli':'మిరప','Cotton':'పత్తి','Rice':'వరి','Wheat':'గోధుమ','Brinjal':'వంకాయ','Okra':'బెండకాయ','Maize':'మొక్కజొన్న','Leaf Spot':'ఆకు మచ్చ','Early Blight':'ప్రారంభ బ్లైట్','Late Blight':'లేట్ బ్లైట్','Healthy':'ఆరోగ్యకరం'},
+ hi:{SUN:'रविवार',MON:'सोमवार',TUE:'मंगलवार',WED:'बुधवार',THU:'गुरुवार',FRI:'शुक्रवार',SAT:'शनिवार',Sunday:'रविवार',Monday:'सोमवार',Tuesday:'मंगलवार',Wednesday:'बुधवार',Thursday:'गुरुवार',Friday:'शुक्रवार',Saturday:'शनिवार',Today:'आज',Weather:'मौसम',Humidity:'नमी',Rain:'बारिश',Wind:'हवा',UV:'यूवी',Refresh:'रिफ्रेश',Profile:'प्रोफ़ाइल',Documents:'दस्तावेज़',History:'इतिहास',Pests:'कीट',Scan:'स्कैन',Home:'होम',Alerts:'अलर्ट','My Farm':'मेरा खेत','Saved Documents':'सहेजे गए दस्तावेज़','Crop Health History':'फसल स्वास्थ्य इतिहास','Health Trend':'स्वास्थ्य प्रवृत्ति','Scan History':'स्कैन इतिहास','Report New Pest':'नए कीट की रिपोर्ट करें','Pest Scan':'कीट स्कैन','Add Observation':'अवलोकन जोड़ें','No Saved Documents':'कोई सहेजे गए दस्तावेज़ नहीं','Create Scan Report':'स्कैन रिपोर्ट बनाएं','Save Profile':'प्रोफ़ाइल सेव करें','Farmer Name':'किसान का नाम','Mobile Number':'मोबाइल नंबर','Camera':'कैमरा','Upload Image':'इमेज अपलोड करें','Analyze Crop':'फसल का विश्लेषण करें','Symptoms':'लक्षण','Recommendation':'सिफारिश','Pest Monitoring':'कीट निगरानी','Weather & Risk':'मौसम और जोखिम','Disease Risk':'रोग जोखिम','LOW':'कम','MEDIUM':'मध्यम','MODERATE':'मध्यम','HIGH':'उच्च','No Pest':'कोई कीट नहीं','Fruit Fly':'फल मक्खी','Aphids':'माहू','Rust':'रस्ट','Groundnut':'मूंगफली','Tomato':'टमाटर','Potato':'आलू','Chilli':'मिर्च','Cotton':'कपास','Rice':'धान','Wheat':'गेहूं','Brinjal':'बैंगन','Okra':'भिंडी','Maize':'मक्का','Leaf Spot':'पत्ती धब्बा','Early Blight':'अर्ली ब्लाइट','Late Blight':'लेट ब्लाइट','Healthy':'स्वस्थ'}
+};
+
+function clean(x){return String(x==null?'':x).replace(/\u00a0/g,' ').replace(/[ \t\r\n]+/g,' ').trim()}
+function hasEnglish(x){return /[A-Za-z]/.test(String(x||''))}
+function dictionaries(l){var ds=[];try{if(typeof T!=='undefined'&&T[l])ds.push(T[l])}catch(e){}try{if(typeof EXTRA_T!=='undefined'&&EXTRA_T[l])ds.push(EXTRA_T[l])}catch(e){}return ds}
+function lookup(x,l){x=clean(x);if(!x)return null;if(l==='en')return x;if(fixed[l]&&fixed[l][x])return fixed[l][x];for(var d of dictionaries(l)){if(Object.prototype.hasOwnProperty.call(d,x)&&clean(d[x]))return String(d[x])}return null}
+function reverse(x){x=clean(x);for(var l of ['te','hi']){if(fixed[l])for(var k in fixed[l])if(clean(fixed[l][k])===x)return k;for(var d of dictionaries(l))for(var k2 in d)if(clean(d[k2])===x)return k2}return x}
+function sourceNode(n){if(nodeSource.has(n))return nodeSource.get(n);var x=n.nodeValue||'';var c=clean(x);if(c&&!hasEnglish(c))c=reverse(c);nodeSource.set(n,c||x);return c||x}
+function sourceAttr(el,a){var m=attrSource.get(el);if(!m){m={};attrSource.set(el,m)}if(m[a]===undefined)m[a]=el.getAttribute('data-v21-'+a)||el.getAttribute(a)||'';return m[a]}
+function sourceOption(o){if(optionSource.has(o))return optionSource.get(o);var x=o.getAttribute('data-v21-source')||clean(o.textContent||'');if(!hasEnglish(x))x=reverse(x);optionSource.set(o,x);o.setAttribute('data-v21-source',x);return x}
+
+function ui(){
+ var dock=document.getElementById('agrV21Lang');if(!dock){dock=document.createElement('div');dock.id='agrV21Lang';dock.innerHTML='<button data-agr-v21="en">EN</button><button data-agr-v21="te">తెలుగు</button><button data-agr-v21="hi">हिन्दी</button>';document.body.appendChild(dock)}
+ var prog=document.getElementById('agrV21Progress');if(!prog){prog=document.createElement('div');prog.id='agrV21Progress';prog.innerHTML='<span id="agrV21Pct">Translating… 0%</span><span id="agrV21Track"><span id="agrV21Fill"></span></span>';document.body.appendChild(prog)}
+ var gate=document.getElementById('authGate');if(gate){var ld=document.getElementById('agrV21Login');if(!ld){ld=document.createElement('div');ld.id='agrV21Login';ld.innerHTML='<button data-agr-v21="en">EN</button><button data-agr-v21="te">తెలుగు</button><button data-agr-v21="hi">हिन्दी</button>';gate.appendChild(ld)}}
+ var logged=!!(gate&&!gate.classList.contains('auth-hidden'));dock.classList.toggle('show',!logged);var login=document.getElementById('agrV21Login');if(login)login.classList.toggle('show',logged);
+ [dock,login].forEach(function(d){if(d)d.querySelectorAll('[data-agr-v21]').forEach(function(b){b.classList.toggle('active',b.dataset.agrV21===lang)})});
+}
+function progress(){var p=total?Math.min(100,Math.round(done/total*100)):0;var box=document.getElementById('agrV21Progress'),fill=document.getElementById('agrV21Fill'),pct=document.getElementById('agrV21Pct');if(fill)fill.style.width=p+'%';if(pct)pct.textContent='Translating… '+p+'%';if(box)box.classList.toggle('show',lang!=='en'&&total>done);if(total&&done>=total)setTimeout(function(){var b=document.getElementById('agrV21Progress');if(b)b.classList.remove('show')},350)}
+function save(){clearTimeout(save.timer);save.timer=setTimeout(function(){try{localStorage.setItem('agrishieldV21Cache',JSON.stringify(cache))}catch(e){}},800)}
+function cancel(){generation++;queue.length=0;pending.clear();controllers.forEach(function(c){try{c.abort()}catch(e){}});controllers.clear();total=done=0;progress()}
+function request(base,l,fn){var key=l+'|'+base;if(cache[key]){fn(cache[key]);return}if(pending.has(key)){pending.get(key).push(fn);return}pending.set(key,[fn]);queue.push({base:base,lang:l,key:key,gen:generation});total++;pump();progress()}
+async function remote(job){var q=encodeURIComponent(job.base);var urls=['https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl='+job.lang+'&dt=t&q='+q,'https://api.mymemory.translated.net/get?q='+q+'&langpair=en%7C'+job.lang];for(var u of urls){var c=null,tm=0;try{c=new AbortController();controllers.add(c);tm=setTimeout(function(){try{c.abort()}catch(e){}},3500);var r=await fetch(u,{signal:c.signal,cache:'force-cache'});clearTimeout(tm);controllers.delete(c);if(!r.ok)continue;var j=await r.json(),out='';if(Array.isArray(j)&&Array.isArray(j[0]))out=j[0].map(function(x){return x[0]||''}).join('');else if(j&&j.responseData)out=j.responseData.translatedText||'';out=clean(out);if(out&&out.toLowerCase()!==job.base.toLowerCase())return out}catch(e){clearTimeout(tm);if(c)controllers.delete(c);if(e&&e.name==='AbortError')return ''}}return ''}
+function pump(){while(active<MAX&&queue.length){var job=queue.shift();if(job.gen!==generation)continue;active++;remote(job).then(function(out){var list=pending.get(job.key)||[];if(out)cache[job.key]=out;var v=out||job.base;list.forEach(function(fn){try{fn(v)}catch(e){}});save()}).finally(function(){active--;pending.delete(job.key);if(job.gen===generation)done++;progress();pump()})}}
+
+function core(l){
+ try{language=l}catch(e){}try{window.language=l}catch(e){}try{localStorage.setItem('agrishieldLanguage',l)}catch(e){}
+ var t=null;try{t=T[l]||T.en}catch(e){}
+ if(t)document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.dataset.i18n;if(t[k])el.textContent=t[k]});
+ var ph={en:{loginName:'Enter your name',loginMobile:'+91 XXXXX XXXXX',createName:'Enter your name',createMobile:'+91 XXXXX XXXXX',createPassword:'Create password',confirmPassword:'Confirm password'},te:{loginName:'మీ పేరు నమోదు చేయండి',loginMobile:'+91 XXXXX XXXXX',createName:'మీ పేరు నమోదు చేయండి',createMobile:'+91 XXXXX XXXXX',createPassword:'పాస్‌వర్డ్ సృష్టించండి',confirmPassword:'పాస్‌వర్డ్ నిర్ధారించండి'},hi:{loginName:'अपना नाम दर्ज करें',loginMobile:'+91 XXXXX XXXXX',createName:'अपना नाम दर्ज करें',createMobile:'+91 XXXXX XXXXX',createPassword:'पासवर्ड बनाएं',confirmPassword:'पासवर्ड की पुष्टि करें'}}[l];if(ph)Object.keys(ph).forEach(function(id){var e=document.getElementById(id);if(e)e.placeholder=ph[id]});
+ var auth={en:{'Farmer Login':'Farmer Login','Sign in to manage your farm, crop scans, weather and alerts.':'Sign in to manage your farm, crop scans, weather and alerts.','Farmer Name':'Farmer Name','Mobile Number':'Mobile Number','Password':'Password','Login':'Login','Create Account':'Create Account'},te:{'Farmer Login':'రైతు లాగిన్','Sign in to manage your farm, crop scans, weather and alerts.':'మీ పొలం, పంట స్కాన్లు, వాతావరణం మరియు అలర్ట్‌లను నిర్వహించడానికి లాగిన్ అవ్వండి.','Farmer Name':'రైతు పేరు','Mobile Number':'మొబైల్ నంబర్','Password':'పాస్‌వర్డ్','Login':'లాగిన్','Create Account':'ఖాతా సృష్టించండి'},hi:{'Farmer Login':'किसान लॉगिन','Sign in to manage your farm, crop scans, weather and alerts.':'अपने खेत, फसल स्कैन, मौसम और अलर्ट प्रबंधित करने के लिए लॉगिन करें।','Farmer Name':'किसान का नाम','Mobile Number':'मोबाइल नंबर','Password':'पासवर्ड','Login':'लॉगिन','Create Account':'खाता बनाएं'}}[l];
+ if(auth)document.querySelectorAll('#authGate h1,#authGate h2,#authGate h3,#authGate p,#authGate label,#authGate button').forEach(function(el){var raw=clean(el.textContent||'');if(auth[raw])el.textContent=auth[raw]});
+}
+function root(){var gate=document.getElementById('authGate');if(gate&&!gate.classList.contains('auth-hidden'))return gate;var app=document.getElementById('appShell');if(!app)return document.body;return app.querySelector('section.active')||app}
+function translate(rootEl,l){if(!rootEl)return;
+ rootEl.querySelectorAll('[data-i18n]').forEach(function(el){var base='';try{base=T.en[el.dataset.i18n]||''}catch(e){}if(!base)base=clean(el.textContent||'');el.setAttribute('data-v21-source',base);var v=lookup(base,l)||cache[l+'|'+base];if(l==='en')el.textContent=base;else if(v)el.textContent=v;else request(base,l,function(x){if(el.isConnected&&lang===l)el.textContent=x})});
+ var tw=document.createTreeWalker(rootEl,NodeFilter.SHOW_TEXT),ns=[];while(tw.nextNode())ns.push(tw.currentNode);ns.forEach(function(n){var p=n.parentElement;if(!p||p.closest('[data-i18n],script,style,noscript,template,svg,canvas,.notranslate,#agrV21Lang,#agrV21Login,#agrV21Progress'))return;var raw=n.nodeValue||'',base=sourceNode(n);if(!clean(base)||!hasEnglish(base))return;var v=l==='en'?base:(lookup(base,l)||cache[l+'|'+base]);if(v)n.nodeValue=raw.replace(clean(raw),v);else request(base,l,function(x){if(n.isConnected&&lang===l){var now=n.nodeValue||'';n.nodeValue=now.replace(clean(now),x)}})});
+ rootEl.querySelectorAll('input,textarea,[placeholder],[title],[aria-label],[alt]').forEach(function(el){['placeholder','title','aria-label','alt'].forEach(function(a){if(!el.hasAttribute(a))return;var base=sourceAttr(el,a),v=l==='en'?base:(lookup(base,l)||cache[l+'|'+base]);if(v)el.setAttribute(a,v);else if(l!=='en')request(base,l,function(x){if(el.isConnected&&lang===l)el.setAttribute(a,x)})})});
+ rootEl.querySelectorAll('option').forEach(function(o){var base=sourceOption(o),v=l==='en'?base:(lookup(base,l)||cache[l+'|'+base]);if(v)o.textContent=v;else if(l!=='en')request(base,l,function(x){if(o.isConnected&&lang===l)o.textContent=x})});
+ progress();pump();
+}
+function refresh(){ui();core(lang);var target=lang;var r=root();if(r)translate(r,target);if(target!=='en')setTimeout(function(){if(lang===target){var rr=root();if(rr)translate(rr,target)}},80)}
+function setLang(l){if(!LANGS[l])return;cancel();lang=l;core(l);ui();refresh()}
+
+/* Private language buttons prevent every older translator from intercepting them. */
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-agr-v21]');if(!b)return;e.preventDefault();e.stopPropagation();setLang(b.dataset.agrV21);var m=document.getElementById('languageModal');if(m)m.classList.remove('show')},true);
+
+/* Replace the old modal language buttons so the previous translators never receive them. */
+function modal(){var box=document.querySelector('#languageModal .language-options');if(box&&box.dataset.v21!=='1'){box.innerHTML='<button class="language-option" data-agr-v21="en">🇬🇧 English</button><button class="language-option" data-agr-v21="te">🇮🇳 తెలుగు</button><button class="language-option" data-agr-v21="hi">🇮🇳 हिन्दी</button>';box.dataset.v21='1'}}
+
+/* Navigation clicks change the active section; translate that section immediately after the original handler. */
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#appShell [data-go]');if(b)setTimeout(refresh,0)},false);
+/* Dynamic renderers use childList changes. No characterData observer = no self-triggered loop. */
+var obs=new MutationObserver(function(ms){if(lang==='en')return;var added=false;for(var m of ms)if(m.addedNodes&&m.addedNodes.length){added=true;break}if(added){clearTimeout(window.__agrV21ObsTimer);window.__agrV21ObsTimer=setTimeout(refresh,40)}});
+function init(){modal();ui();core(lang);obs.observe(document.body,{childList:true,subtree:true});refresh()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+/* Make every existing/future call to applyLanguage use this single controller. */
+try{applyLanguage=setLang}catch(e){}
+window.applyLanguage=setLang;
+window.translateWholePage=function(l){if(l)setLang(l);else refresh()};
+window.translateDynamic=function(){refresh()};
+window.fullScanTranslate=function(){refresh()};
+window.__agrTr=function(x,l){var z=clean(x),v=lookup(z,l||lang)||cache[(l||lang)+'|'+z];return v||z};
+window.agrishieldSetLanguage=setLang;window.agrishieldRefreshTranslation=refresh;window.agrishieldTranslationLanguages=LANGS;
+})();
+</script>
+
+<!-- =========================================================
+     AGRISHIELD FIREBASE CLOUD AUTH + DATA SYNC
+     Mobile + password is mapped to a private Firebase email identity.
+     Passwords are NEVER stored in Firestore.
+     ========================================================= -->
+<script id="AGRISHIELD-FIREBASE-CLOUD-V1">
+(function(){
+  'use strict';
+
+  /* Firebase client SDK (safe to expose in frontend; protect data with Firestore Rules). */
+  function loadFirebaseSDK(){
+    if(window.firebase && window.firebase.apps && window.firebase.apps.length) return Promise.resolve();
+    return new Promise(function(resolve,reject){
+      var urls=[
+        'https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js',
+        'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js',
+        'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js'
+      ];
+      var i=0;
+      function next(){
+        if(i>=urls.length) return resolve();
+        var s=document.createElement('script');
+        s.src=urls[i++];
+        s.onload=next;
+        s.onerror=function(){reject(new Error('Firebase SDK failed to load. Check internet connection.'));};
+        document.head.appendChild(s);
+      }
+      next();
+    });
+  }
+
+  var firebaseConfig={
+    apiKey:"AIzaSyA052fcoC57OFvw9O3U80ZvIlgJfWKENmM",
+    authDomain:"agrishield-f1218.firebaseapp.com",
+    projectId:"agrishield-f1218",
+    storageBucket:"agrishield-f1218.firebasestorage.app",
+    messagingSenderId:"767130298254",
+    appId:"1:767130298254:web:4a84cebff7fcc87600e6df",
+    measurementId:"G-7DLD8GEQ6N"
+  };
+
+  var auth=null, db=null, ready=false, syncing=false;
+
+  function $id(id){return document.getElementById(id);}
+  function digits(v){return String(v||'').replace(/\D/g,'').slice(-10);}
+  function validMobile(v){return /^\d{10}$/.test(digits(v));}
+  function loginEmail(mobile){return digits(mobile)+'@agrishield.app';}
+  function showErr(id,msg){var e=$id(id);if(e)e.textContent=msg||'';}
+  function toastSafe(msg){try{if(typeof toast==='function')toast(msg);}catch(e){}}
+  function readLocal(key,fallback){
+    try{var v=JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));return v==null?fallback:v;}
+    catch(e){return fallback;}
+  }
+  function writeLocal(key,value){
+    try{localStorage.setItem(key,JSON.stringify(value));}catch(e){}
+  }
+  function cloudError(e){
+    var c=(e&&e.code)||'';
+    var map={
+      'auth/invalid-credential':'Invalid mobile or password.',
+      'auth/invalid-login-credentials':'Invalid mobile or password.',
+      'auth/wrong-password':'Invalid mobile or password.',
+      'auth/user-not-found':'Account not found. Please create an account first.',
+      'auth/email-already-in-use':'This mobile is already registered. Please login.',
+      'auth/weak-password':'Password must be at least 6 characters.',
+      'auth/too-many-requests':'Too many attempts. Please wait and try again.',
+      'auth/network-request-failed':'Network error. Check your internet connection.',
+      'permission-denied':'Database permission denied. Check Firestore Rules.'
+    };
+    return map[c] || (e&&e.message ? e.message.replace(/^Firebase:\s*/,'') : 'Something went wrong.');
+  }
+
+  function showSuccess(title,text,after){
+    var box=$id('authSuccess');
+    if(!box)return after&&after();
+    $id('authSuccessTitle').textContent=title;
+    $id('authSuccessText').textContent=text;
+    box.classList.add('show');
+    var old=$id('authContinueBtn'); if(old)old.remove();
+    var btn=document.createElement('button');
+    btn.id='authContinueBtn'; btn.type='button'; btn.className='auth-btn';
+    btn.style.maxWidth='300px'; btn.style.marginTop='18px';
+    btn.textContent='🌱 Continue to AgriShield';
+    btn.onclick=function(){
+      box.classList.remove('show');
+      if(after)after();
+    };
+    box.appendChild(btn);
+  }
+
+  function openDashboard(){
+    var gate=$id('authGate'), app=$id('appShell');
+    if(gate)gate.classList.add('auth-hidden');
+    if(app)app.style.display='block';
+    try{if(typeof updateUserUI==='function')updateUserUI();}catch(e){}
+    try{if(typeof showSection==='function')showSection('home',false);}catch(e){}
+  }
+
+  function openAuth(){
+    var gate=$id('authGate'), app=$id('appShell');
+    if(gate)gate.classList.remove('auth-hidden');
+    if(app)app.style.display='none';
+  }
+
+  function profileFromLocal(){
+    return readLocal('agrishieldUser',null);
+  }
+
+  async function saveProfile(user, extra){
+    if(!user || !db)return;
+    var data={
+      name:(extra&&extra.name)||user.name||'Farmer',
+      mobile:digits((extra&&extra.mobile)||user.mobile||''),
+      createdAt:(extra&&extra.createdAt)||new Date().toISOString(),
+      updatedAt:new Date().toISOString()
+    };
+    await db.collection('users').doc(user.uid).set(data,{merge:true});
+    writeLocal('agrishieldUser',{name:data.name,mobile:data.mobile});
+    try{if(typeof updateUserUI==='function')updateUserUI();}catch(e){}
+  }
+
+  async function fetchCollection(uid,name){
+    var snap=await db.collection('users').doc(uid).collection(name).get();
+    var arr=[];
+    snap.forEach(function(doc){
+      var d=doc.data()||{};
+      if(d.id==null)d.id=doc.id;
+      arr.push(d);
+    });
+    arr.sort(function(a,b){return Number(b.id||0)-Number(a.id||0);});
+    return arr;
+  }
+
+  async function uploadCollection(uid,name,items){
+    if(!Array.isArray(items))return;
+    var col=db.collection('users').doc(uid).collection(name);
+    for(var i=0;i<items.length;i++){
+      var item=items[i]||{};
+      var id=String(item.id!=null?item.id:Date.now()+'-'+i);
+      await col.doc(id).set(item,{merge:true});
+    }
+  }
+
+  async function deleteCollectionDoc(uid,name,id){
+    if(!db || !uid || id==null)return;
+    await db.collection('users').doc(uid).collection(name).doc(String(id)).delete();
+  }
+
+  async function syncDataToCloud(){
+    var u=auth&&auth.currentUser;
+    if(!u || !db || syncing)return;
+    syncing=true;
+    try{
+      await uploadCollection(u.uid,'history',readLocal('agrishieldHistory',[]));
+      await uploadCollection(u.uid,'documents',readLocal('agrishieldDocuments',[]));
+      await uploadCollection(u.uid,'pests',readLocal('agrishieldPestReports',[]));
+      var latest=readLocal('agrishieldLatestScan',null);
+      if(latest){
+        /* Do not upload the large image data URL to Firestore. */
+        var safe={};
+        Object.keys(latest).forEach(function(k){if(k!=='imageSrc')safe[k]=latest[k];});
+        await db.collection('users').doc(u.uid).collection('meta').doc('latestScan').set(safe,{merge:true});
+      }
+    }catch(e){
+      console.warn('AgriShield cloud sync:',e);
+    }finally{syncing=false;}
+  }
+
+  async function hydrateFromCloud(){
+    var u=auth&&auth.currentUser;
+    if(!u || !db)return;
+
+    var localProfile=profileFromLocal();
+    var profileSnap=await db.collection('users').doc(u.uid).get();
+    var profile=profileSnap.exists ? (profileSnap.data()||{}) : null;
+
+    if(!profile){
+      if(localProfile){
+        await saveProfile(u,localProfile);
+        profile=localProfile;
+      }else{
+        profile={name:'Farmer',mobile:''};
+        await saveProfile(u,profile);
+      }
+    }else{
+      writeLocal('agrishieldUser',{name:profile.name||'Farmer',mobile:profile.mobile||''});
+    }
+
+    var cloudHistory=await fetchCollection(u.uid,'history');
+    var cloudDocs=await fetchCollection(u.uid,'documents');
+    var cloudPests=await fetchCollection(u.uid,'pests');
+
+    /* If this account already has cloud data, merge local data without duplicates.
+       This also migrates data created before Firebase was connected. */
+    function merge(local,cloud){
+      var map={};
+      (cloud||[]).forEach(function(x){map[String(x.id)]=x;});
+      (local||[]).forEach(function(x){if(!map[String(x.id)])map[String(x.id)]=x;});
+      return Object.keys(map).map(function(k){return map[k];})
+        .sort(function(a,b){return Number(b.id||0)-Number(a.id||0);});
+    }
+
+    var localHistory=readLocal('agrishieldHistory',[]);
+    var localDocs=readLocal('agrishieldDocuments',[]);
+    var localPests=readLocal('agrishieldPestReports',[]);
+
+    var history=merge(localHistory,cloudHistory);
+    var docs=merge(localDocs,cloudDocs);
+    var pests=merge(localPests,cloudPests);
+
+    writeLocal('agrishieldHistory',history);
+    writeLocal('agrishieldDocuments',docs);
+    writeLocal('agrishieldPestReports',pests);
+
+    var latestSnap=await db.collection('users').doc(u.uid).collection('meta').doc('latestScan').get();
+    if(latestSnap.exists){
+      var latest=latestSnap.data();
+      var oldLatest=readLocal('agrishieldLatestScan',null);
+      if(oldLatest && oldLatest.imageSrc)latest.imageSrc=oldLatest.imageSrc;
+      writeLocal('agrishieldLatestScan',latest);
+      window.latestScan=latest;
+    }
+
+    /* Push merged local data so first-device data is preserved in the backend. */
+    await syncDataToCloud();
+
+    try{if($id('scanCount'))$id('scanCount').textContent=history.length;}catch(e){}
+    try{if(typeof renderHistory==='function')renderHistory();}catch(e){}
+    try{if(typeof renderDocuments==='function')renderDocuments();}catch(e){}
+    try{if(typeof renderPests==='function')renderPests();}catch(e){}
+    try{if(typeof renderAdvisory==='function')renderAdvisory();}catch(e){}
+    try{if(typeof updateProfileStats==='function')updateProfileStats();}catch(e){}
+  }
+
+  function wrapFunction(name,cloudCollection){
+    if(typeof window[name]!=='function' || window[name].__firebaseWrapped)return;
+    var original=window[name];
+    var wrapped=function(){
+      var args=arguments;
+      var result=original.apply(this,args);
+      setTimeout(async function(){
+        var u=auth&&auth.currentUser;if(!u)return;
+        try{
+          if(cloudCollection==='history'){
+            var item=readLocal('agrishieldHistory',[])[0];
+            if(item)await db.collection('users').doc(u.uid).collection('history').doc(String(item.id)).set(item,{merge:true});
+          }else if(cloudCollection==='documents'){
+            var item2=readLocal('agrishieldDocuments',[])[0];
+            if(item2)await db.collection('users').doc(u.uid).collection('documents').doc(String(item2.id)).set(item2,{merge:true});
+          }else if(cloudCollection==='pests'){
+            var arr=readLocal('agrishieldPestReports',[]);
+            await uploadCollection(u.uid,'pests',arr);
+          }
+        }catch(e){console.warn('Cloud write '+cloudCollection,e);}
+      },0);
+      return result;
+    };
+    wrapped.__firebaseWrapped=true;
+    window[name]=wrapped;
+  }
+
+  function installWrappers(){
+    wrapFunction('saveHistory','history');
+    wrapFunction('saveDocument','documents');
+    wrapFunction('saveRealPests','pests');
+  }
+
+  function installDeleteSync(){
+    document.addEventListener('click',function(e){
+      var u=auth&&auth.currentUser;
+      if(!u)return;
+      var pestBtn=e.target.closest&&e.target.closest('.remove-pest');
+      var deleteBtn=e.target.closest&&e.target.closest('.delete-doc');
+      setTimeout(async function(){
+        if(!u)return;
+        try{
+          if(pestBtn){
+            var id=pestBtn.dataset.id;
+            if(id!=null)await deleteCollectionDoc(u.uid,'pests',id);
+          }
+          if(deleteBtn){
+            /* Documents are rendered with inline deleteDocument(id). */
+            var id2=deleteBtn.getAttribute('onclick')||'';
+            var m=id2.match(/deleteDocument\((\d+)\)/);
+            if(m)await deleteCollectionDoc(u.uid,'documents',m[1]);
+          }
+          if(pestBtn || deleteBtn)await syncDataToCloud();
+        }catch(err){console.warn('Cloud delete sync:',err);}
+      },120);
+    },false);
+
+    var profileBtn=$id('saveProfile');
+    if(profileBtn)profileBtn.addEventListener('click',function(){
+      setTimeout(async function(){
+        var u=auth&&auth.currentUser;if(!u)return;
+        var name=$id('editName')&&$id('editName').value.trim();
+        var mobile=$id('editMobile')&&digits($id('editMobile').value);
+        if(name&&validMobile(mobile)){
+          try{await saveProfile(u,{name:name,mobile:mobile});}catch(e){console.warn('Profile cloud sync:',e);}
+        }
+      },80);
+    },false);
+  }
+
+  function installFirebaseAuth(){
+    return loadFirebaseSDK().then(function(){
+      try{
+        if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+        auth=firebase.auth();
+        db=firebase.firestore();
+        ready=true;
+      }catch(e){
+        console.error('Firebase initialization failed',e);
+        throw e;
+      }
+
+      /* Capture-phase handlers run before the old localStorage-only auth handlers. */
+      var createForm=$id('authCreateForm');
+      var loginForm=$id('authLoginForm');
+
+      if(createForm)createForm.addEventListener('submit',async function(e){
+        e.preventDefault();e.stopImmediatePropagation();
+        showErr('authCreateError','');
+        var name=$id('authCreateName').value.trim();
+        var mobile=digits($id('authCreateMobile').value);
+        var password=$id('authCreatePassword').value;
+        var confirm=$id('authConfirmPassword').value;
+        if(name.length<2)return showErr('authCreateError','Please enter your farmer name.');
+        if(!validMobile(mobile))return showErr('authCreateError','Enter a valid 10-digit mobile number.');
+        if(password.length<6)return showErr('authCreateError','Password must be at least 6 characters.');
+        if(password!==confirm)return showErr('authCreateError','Passwords do not match.');
+        var btn=createForm.querySelector('button[type="submit"]');
+        if(btn)btn.disabled=true;
+        try{
+          var cred=await auth.createUserWithEmailAndPassword(loginEmail(mobile),password);
+          await db.collection('users').doc(cred.user.uid).set({
+            name:name,mobile:mobile,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()
+          },{merge:true});
+          writeLocal('agrishieldUser',{name:name,mobile:mobile});
+          await hydrateFromCloud();
+          showSuccess('Account Created!','Welcome '+name+' — your account is securely saved in Firebase.',openDashboard);
+        }catch(err){
+          showErr('authCreateError',cloudError(err));
+        }finally{if(btn)btn.disabled=false;}
+      },true);
+
+      if(loginForm)loginForm.addEventListener('submit',async function(e){
+        e.preventDefault();e.stopImmediatePropagation();
+        showErr('authLoginError','');
+        var mobile=digits($id('authLoginMobile').value);
+        var password=$id('authLoginPassword').value;
+        if(!validMobile(mobile))return showErr('authLoginError','Enter your registered 10-digit mobile number.');
+        if(!password)return showErr('authLoginError','Enter your password.');
+        var btn=loginForm.querySelector('button[type="submit"]');
+        if(btn)btn.disabled=true;
+        try{
+          var cred=await auth.signInWithEmailAndPassword(loginEmail(mobile),password);
+          var snap=await db.collection('users').doc(cred.user.uid).get();
+          var profile=snap.exists?snap.data():{name:'Farmer',mobile:mobile};
+          writeLocal('agrishieldUser',{name:profile.name||'Farmer',mobile:profile.mobile||mobile});
+          await hydrateFromCloud();
+          showSuccess('Login Successful!','Welcome back, '+(profile.name||'Farmer')+' 🌱',openDashboard);
+        }catch(err){
+          /* Migrate an old localStorage account to Firebase on this device. */
+          var old=readLocal('agrishieldAccounts',[]).find(function(x){
+            return digits(x.mobile)===mobile && x.password===password;
+          });
+          if(old && (err.code==='auth/user-not-found'||err.code==='auth/invalid-credential'||err.code==='auth/invalid-login-credentials')){
+            try{
+              var migrated=await auth.createUserWithEmailAndPassword(loginEmail(mobile),password);
+              await db.collection('users').doc(migrated.user.uid).set({
+                name:old.name||'Farmer',mobile:mobile,createdAt:old.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()
+              },{merge:true});
+              writeLocal('agrishieldUser',{name:old.name||'Farmer',mobile:mobile});
+              await hydrateFromCloud();
+              showSuccess('Account Connected!','Your existing AgriShield account is now saved securely in Firebase.',openDashboard);
+            }catch(migErr){
+              showErr('authLoginError',cloudError(migErr));
+            }
+          }else{
+            showErr('authLoginError',cloudError(err));
+          }
+        }finally{if(btn)btn.disabled=false;}
+      },true);
+
+      /* Firebase owns the session. Refreshing or using another phone keeps login valid. */
+      auth.onAuthStateChanged(async function(user){
+        if(user){
+          try{
+            await hydrateFromCloud();
+            openDashboard();
+          }catch(e){
+            console.error('AgriShield cloud load failed',e);
+            openDashboard();
+          }
+        }else{
+          openAuth();
+        }
+      });
+
+      /* Replace the old logout click with Firebase sign-out. */
+      document.addEventListener('click',function(e){
+        var b=e.target.closest&&e.target.closest('#logoutBtn');
+        if(!b)return;
+        e.preventDefault();e.stopImmediatePropagation();
+        auth.signOut().then(function(){
+          localStorage.removeItem('agrishieldUser');
+          sessionStorage.removeItem('agrishieldSession');
+          openAuth();
+          toastSafe('Logged out successfully.');
+        }).catch(function(err){toastSafe(cloudError(err));});
+      },true);
+
+      installWrappers();
+      installDeleteSync();
+
+      /* Re-check wrappers after dynamic patches have finished. */
+      setTimeout(installWrappers,1000);
+      setTimeout(installWrappers,2500);
+    });
+  }
+
+  /* Do not expose passwords or admin credentials. This config is client-side Firebase config. */
+  window.__agrishieldFirebaseReady=function(){return ready;};
+  window.__agrishieldFirebaseSync=function(){return syncDataToCloud();};
+
+  installFirebaseAuth().catch(function(err){
+    console.error(err);
+    /* Keep the existing UI visible rather than freezing the whole app. */
+    openAuth();
+    showErr('authLoginError','Firebase could not load. Check your internet connection and Firebase project settings.');
+  });
+
 })();
 </script>
 
